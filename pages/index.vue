@@ -20,9 +20,9 @@ const surveyJSON = {
         isRequired: true,
         colCount: 0,
         hasNone: true,
-        choicesByUrl: {
+        ChoicesRestful: {
         url: "https://api.fd49.synology.me:5001/aappma",
-        valueName: "topooh"
+        valueName: "aappma"
       }
         },
         {
@@ -72,7 +72,7 @@ const surveyJSON = {
 };
 
 const survey = new surveyVue.Model(surveyJSON);
-survey.ChoicesRestfull.onBeforeSendRequest = function(sender, options) {
+survey.ChoicesRestful.onBeforeSendRequest = function(sender, options) {
   options.request.setRequestHeader("Accept-Profile", "data_int");
 };
 export default {
