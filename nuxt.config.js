@@ -1,5 +1,6 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  ssr: false,
   head: {
     title: 'webform_emp',
     htmlAttrs: {
@@ -36,13 +37,14 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
   ],
   axios: {
-    baseURL: '/',
+    baseURL: 'https://api.fd49.synology.me:5001/',
 
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    
   }
 }

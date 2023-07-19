@@ -1,7 +1,7 @@
 <template>
-<b-container>
+<div>
   <Survey :survey="survey" />
-</b-container>
+</div>
 </template>
 
 <script>
@@ -10,9 +10,10 @@ import { Model } from 'survey-core';
 import "survey-core/survey.i18n";
 import * as SurveyCore from "survey-core";
 import { Survey } from 'survey-vue-ui';
+import { EventBus } from '../plugins/EventBus';
 
 const surveyJSON = {
-  title: "Etat des lieux de l'empoissonnement",
+  title: "Modif",
   pages: [
     {
       name: "page1",
@@ -213,16 +214,26 @@ export default {
   },
    data() {
     return {
-      survey
+      survey,
+      contentID: null
     }
+  },
+    created() {
+    // Listen for the 'data-event' and handle the received data
+        EventBus.$on('data-event', (data) => {
+      this.survey.data = data.content;
+      console.log(data.id);
+      this.contentID = data.id;
+    });
+
   },
   async mounted () {
      survey.onComplete.add((sender, options) => {
       // Display the "Saving..." message (pass a string value to display a custom message)
       console.log(new Date().toLocaleString("fr"));
-      var obj = {content: null, date_creation: new Date(), aappma: sender.data.aappma}
+      var obj = {content: null, date_modification: new Date()}
       obj.content = sender.data
-       this.$axios.post(
+       this.$axios.patch(
           "form_results",
           obj,
           {
@@ -230,6 +241,9 @@ export default {
               "Content-Profile": "srv_tech",
               "Content-type": "application/json; charset=utf-8",
             },
+            params: {
+        id: 'eq.' + this.contentID
+      }
           }
         )
         .then((resp) => {
