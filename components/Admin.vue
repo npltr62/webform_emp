@@ -15,9 +15,9 @@
           <b-button type="submit" variant="danger" @click="showMsgBoxTwo(row.item,index)" size="sm">
             Supprimer
           </b-button>
-          <router-link :to="{ name: 'update' }"><b-button variant="warning" size="sm" @click="editRow(row.item)" >
+          <b-button variant="warning" size="sm" @click="editRow(row.item)" >
             Modifier
-          </b-button></router-link>
+          </b-button>
           <b-button variant="success" size="sm"  @click="validateRow(row.item)" :disabled="row.item.check">
             Valider
           </b-button>

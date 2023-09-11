@@ -1,10 +1,14 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   ssr: false,
+  env:{
+    PGREST : 'https://api.fd49.synology.me:5001/',
+    FILESAPI : 'http://localhost:3001/'
+  },
   head: {
     title: 'webform_emp',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'fr'
     },
     meta: [
       { charset: 'utf-8' },
@@ -16,15 +20,19 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
-
+  publicRuntimeConfig: {
+    PGREST: process.env.PGREST,
+    FILESAPI : process.env.FILESAPI
+  },
+  privateRuntimeConfig: {
+    PGREST: process.env.PGREST,
+    FILESAPI : process.env.FILESAPI
+  },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    "~/plugins/survey-vue.client.js"
-  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -39,12 +47,15 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
   ],
-  axios: {
-    baseURL: 'https://api.fd49.synology.me:5001/',
-
-  },
+  bootstrapVue: {
+    icons: true,
+},
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    
-  }
+    extend(config, {}) {
+        config.node = {
+            fs: 'empty'
+        }
+    }
+},
 }

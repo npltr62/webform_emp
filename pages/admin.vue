@@ -1,5 +1,6 @@
 <template>
   <div>
+    
  <b-form @submit="submitForm" class="d-flex" v-if="!loginsuccess">
     <b-form-group id="username" label="Username:" label-for="input-username" class="mb-2 mr-2">
       <b-form-input id="input-username" v-model="username" required></b-form-input>
@@ -11,7 +12,18 @@
 
     <b-button type="submit" variant="primary" class="align-self-end">Login</b-button>
   </b-form>
-    <Admin v-if="loginsuccess"/>
+  <b-row  v-if="loginsuccess">
+    <b-col cols=4>
+      <h3>Formulaires enregistrés</h3>
+      <Admin/>
+    </b-col>
+    <b-col cols=8>
+      <h3>A modifier</h3>
+      <transition name='fade'>
+      <Form/>
+      </transition>
+    </b-col>
+  </b-row>
   </div>
 </template>
 
@@ -39,6 +51,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
 </style>
